@@ -1,0 +1,2 @@
+Preciso adicionar um objeto com o modelo do coelho fazendo uma animação em movimento circular ao redor da origem.
+A animação deve ser baseada no tempo para não sofrer alterações na velocidade caso haja variação na taxa de quadros.

@@ -245,7 +245,7 @@ int main(int argc, char* argv[])
     // Criamos uma janela do sistema operacional, com 800 colunas e 600 linhas
     // de pixels, e com título "INF01047 ...".
     GLFWwindow* window;
-    window = glfwCreateWindow(800, 600, "INF01047 - Seu Cartao - Seu Nome", NULL, NULL);
+    window = glfwCreateWindow(800, 600, "INF01047 - 00318500 - Eric Peracchi Pisoni", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -366,7 +366,7 @@ int main(int argc, char* argv[])
         // Note que, no sistema de coordenadas da câmera, os planos near e far
         // estão no sentido negativo! Veja slides 176-204 do documento Aula_09_Projecoes.pdf.
         float nearplane = -0.1f;  // Posição do "near plane"
-        float farplane  = -10.0f; // Posição do "far plane"
+        float farplane  = -40.0f; // Posição do "far plane"
 
         if (g_UsePerspectiveProjection)
         {
@@ -427,6 +427,27 @@ int main(int argc, char* argv[])
             glUniform1i(g_surface_type_uniform, bunny_surfaces[i]);
             DrawVirtualObject("the_bunny");
         }
+
+        // Desenhamos um coelho em movimento circular ao redor da origem.
+        // O ângulo é calculado a partir do tempo decorrido (em segundos), e não
+        // do número de quadros, para que a velocidade da animação seja a mesma
+        // independentemente da taxa de quadros.
+        const float orbit_radius        = 3.0f;              // Raio da trajetória circular
+        const float orbit_angular_speed = 3.141592f / 2.0f;  // Velocidade angular (radianos por segundo)
+        float orbit_angle = orbit_angular_speed * (float)glfwGetTime();
+
+        // As seguintes transformações acontecem "de trás pra frente"
+        // 1: rotaciona o modelo em -90° (sentido horário)
+        // 2: aplica translação em orbit_radius unidades
+        // 3: aplica rotação em torno da origem em orbit_angle radianos
+        model = Matrix_Rotate_Y(orbit_angle)
+              * Matrix_Translate(orbit_radius, 0.0f, 0.0f)
+              * Matrix_Rotate_Y(-M_PI_2);
+
+        glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
+        glUniform1i(g_object_id_uniform, BUNNY);
+        glUniform1i(g_surface_type_uniform, GOLD_SURFACE);
+        DrawVirtualObject("the_bunny");
 
         // Desenhamos o plano do chão
         model = Matrix_Translate(0.0f,-1.0f,0.0f) * Matrix_Scale(4.0f,1.0f,4.0f);

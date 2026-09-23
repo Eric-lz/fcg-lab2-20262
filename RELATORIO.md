@@ -6,8 +6,8 @@
 
 ## Dados do aluno
 
-- **Cartão UFRGS**: <mark>`<preencher>`</mark>
-- **Nome**: <mark>`<preencher>`</mark>
+- **Cartão UFRGS**: 00318500
+- **Nome**: Eric Peracchi Pisoni
 
 ## Passos que eu segui para resolver o problema especificado (em formato de *"prompt"*)
 
@@ -30,7 +30,7 @@
 > - Novamente, lembre-se que você *não pode utilizar ferramentas
 >   de IA para escrever este relatório*
 
-<mark>`<preencher>`</mark>
+Primeiro, crie um novo objeto com uma animação simples em movimento circular ao redor da origem.
 
 ## Principais dificuldades encontradas durante o desenvolvimento (formato livre)
 
