@@ -407,47 +407,81 @@ int main(int argc, char* argv[])
         #define JADE_SURFACE         6
 
         // Desenhamos o modelo da esfera
-        model = Matrix_Translate(-2.0f,0.0f,0.0f);
-        glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
-        glUniform1i(g_object_id_uniform, SPHERE);
-        glUniform1i(g_surface_type_uniform, RED_VELVET_SURFACE);
-        DrawVirtualObject("the_sphere");
+        // model = Matrix_Translate(0.0f,0.0f,0.0f);
+        // glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
+        // glUniform1i(g_object_id_uniform, SPHERE);
+        // glUniform1i(g_surface_type_uniform, RED_VELVET_SURFACE);
+        // DrawVirtualObject("the_sphere");
 
         // Desenhamos três coelhos com as cores verde, dourada e azul.
-        const int bunny_surfaces[3] = {
-            JADE_SURFACE,
-            GOLD_SURFACE,
-            BLUE_PLASTIC_SURFACE
-        };
-        for (int i = 0; i < 3; ++i)
-        {
-            model = Matrix_Translate(2.0f * i,0.0f,0.0f);
-            glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
-            glUniform1i(g_object_id_uniform, BUNNY);
-            glUniform1i(g_surface_type_uniform, bunny_surfaces[i]);
-            DrawVirtualObject("the_bunny");
-        }
+        // const int bunny_surfaces[3] = {
+        //     JADE_SURFACE,
+        //     GOLD_SURFACE,
+        //     BLUE_PLASTIC_SURFACE
+        // };
+        // for (int i = 0; i < 3; ++i)
+        // {
+        //     model = Matrix_Translate(2.0f * i,0.0f,0.0f);
+        //     glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
+        //     glUniform1i(g_object_id_uniform, BUNNY);
+        //     glUniform1i(g_surface_type_uniform, bunny_surfaces[i]);
+        //     DrawVirtualObject("the_bunny");
+        // }
 
+        // ==================================================================================================
         // Desenhamos um coelho em movimento circular ao redor da origem.
         // O ângulo é calculado a partir do tempo decorrido (em segundos), e não
         // do número de quadros, para que a velocidade da animação seja a mesma
         // independentemente da taxa de quadros.
-        const float orbit_radius        = 3.0f;              // Raio da trajetória circular
-        const float orbit_angular_speed = 3.141592f / 2.0f;  // Velocidade angular (radianos por segundo)
-        float orbit_angle = orbit_angular_speed * (float)glfwGetTime();
+        const float orbit_radius        = 1.0f;             // Raio da trajetória circular
+        const float orbit_angular_speed = 3.141592f / 6.0f; // Velocidade angular (radianos por segundo)
+        float glTime = (float)glfwGetTime();                // Tempo desde o início do programa (segundos)
+        float orbit_angle = orbit_angular_speed * glTime;
+        
+        // Escala
+        const float bunny_scale = 0.3f;
+
+        // Numero de coelhos
+        const int num_blue_bunnies = 8;
+        
+        // Inclinação
+        const float jump_speed = 3.141592f / 1.5f;
+        float pitch_angle = (cos(glTime * jump_speed)) / 2;
+
+        // Altura do pulo
+        float jump_y = -(sin(glTime * jump_speed) / 3);
 
         // As seguintes transformações acontecem "de trás pra frente"
         // 1: rotaciona o modelo em -90° (sentido horário)
         // 2: aplica translação em orbit_radius unidades
         // 3: aplica rotação em torno da origem em orbit_angle radianos
-        model = Matrix_Rotate_Y(orbit_angle)
-              * Matrix_Translate(orbit_radius, 0.0f, 0.0f)
-              * Matrix_Rotate_Y(-M_PI_2);
+        // model = Matrix_Rotate_Y(orbit_angle)
+        //       * Matrix_Translate(orbit_radius, jump_y, 0.0f)
+        //       * Matrix_Rotate_X(pitch_angle)
+        //       * Matrix_Rotate_Y(-3.141592f / 2.0f);
 
-        glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
-        glUniform1i(g_object_id_uniform, BUNNY);
-        glUniform1i(g_surface_type_uniform, GOLD_SURFACE);
-        DrawVirtualObject("the_bunny");
+        // glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
+        // glUniform1i(g_object_id_uniform, BUNNY);
+        // glUniform1i(g_surface_type_uniform, GOLD_SURFACE);
+        // DrawVirtualObject("the_bunny");
+        // ==================================================================================================
+        for (int i = 0; i < num_blue_bunnies; i++){
+            // As seguintes transformações acontecem "de trás pra frente"
+            // 1: rotaciona o modelo em -90° (sentido horário)
+            // 2: aplica translação em orbit_radius unidades
+            // 3: aplica rotação em torno da origem em orbit_angle radianos
+            model = Matrix_Rotate_Y(orbit_angle + (i * 2*3.141592f/num_blue_bunnies))
+                  * Matrix_Translate(orbit_radius, jump_y - 0.4f, 0.0f)
+                  * Matrix_Rotate_X(pitch_angle)
+                  * Matrix_Rotate_Y(-3.141592f / 2.0f)
+                  * Matrix_Scale(bunny_scale, bunny_scale, bunny_scale);
+
+            glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
+            glUniform1i(g_object_id_uniform, BUNNY);
+            glUniform1i(g_surface_type_uniform, BLUE_PLASTIC_SURFACE);
+            DrawVirtualObject("the_bunny");
+        }
+        // ==================================================================================================
 
         // Desenhamos o plano do chão
         model = Matrix_Translate(0.0f,-1.0f,0.0f) * Matrix_Scale(4.0f,1.0f,4.0f);

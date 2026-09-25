@@ -31,6 +31,10 @@
 >   de IA para escrever este relatório*
 
 Primeiro, crie um novo objeto com uma animação simples em movimento circular ao redor da origem.
+Adicione movimento de translação vertical e de rotação no eixo X do objeto para simular um salto.
+Crie várias instâncias do mesmo objeto e aplique a mesma rotação em Y para o movimento ciruclar,
+mas com um pequeno *offset* no ângulo de rotação de forma que todos os objetos fiquem espaçados
+uniformemente.
 
 ## Principais dificuldades encontradas durante o desenvolvimento (formato livre)
 
