@@ -44,6 +44,7 @@ de modo que eles se movimentam em linha reta e depois viram 90° de maneira suav
 ## Você acha que conseguiu resolver o problema de forma adequada?
 
 Os coelhos azuis não se movimentam exatamente como no vídeo de demonstração.
+Também não possuem o chapéu.
 
 ## Se você quiser compartilhar mais alguma coisa, coloque aqui:
 

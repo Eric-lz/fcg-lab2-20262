@@ -483,23 +483,23 @@ int main(int argc, char* argv[])
         }
 
         // Coelhos verdes
-        for (int i = 0; i < 1; i++){
-            float jump_y = -sin(glTime * jump_speed) / 3;         // Altura do pulo
-            float pitch_angle = cos(glTime * jump_speed) / 2;     // Inclinação do pulo
+        // for (int i = 0; i < 1; i++){
+        //     float jump_y = -sin(glTime * jump_speed) / 3;         // Altura do pulo
+        //     float pitch_angle = cos(glTime * jump_speed) / 2;     // Inclinação do pulo
 
-            float bunny_x = cos(glTime);
-            float bunny_z = sin(glTime);
+        //     float bunny_x = cos(glTime);
+        //     float bunny_z = sin(glTime);
 
-            model = Matrix_Translate(bunny_x, jump_y - 0.4f, bunny_z)
-                  * Matrix_Rotate_X(pitch_angle + (i * 2*3.141592f/num_blue_bunnies))
-                  * Matrix_Rotate_Y(-3.141592f / 2.0f)
-                  * Matrix_Scale(bunny_scale, bunny_scale, bunny_scale);
+        //     model = Matrix_Translate(bunny_x, jump_y - 0.4f, bunny_z)
+        //           * Matrix_Rotate_X(pitch_angle + (i * 2*3.141592f/num_blue_bunnies))
+        //           * Matrix_Rotate_Y(-3.141592f / 2.0f)
+        //           * Matrix_Scale(bunny_scale, bunny_scale, bunny_scale);
 
-            glUniformMatrix4fv(g_model_uniform, 1, GL_FALSE, glm::value_ptr(model));
-            glUniform1i(g_object_id_uniform, BUNNY);
-            glUniform1i(g_surface_type_uniform, JADE_SURFACE);
-            DrawVirtualObject("the_bunny");
-        }
+        //     glUniformMatrix4fv(g_model_uniform, 1, GL_FALSE, glm::value_ptr(model));
+        //     glUniform1i(g_object_id_uniform, BUNNY);
+        //     glUniform1i(g_surface_type_uniform, JADE_SURFACE);
+        //     DrawVirtualObject("the_bunny");
+        // }
         // ==================================================================================================
 
         // Desenhamos o plano do chão
