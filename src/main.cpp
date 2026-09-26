@@ -476,32 +476,35 @@ int main(int argc, char* argv[])
                   * Matrix_Rotate_Y(-3.141592f / 2.0f)
                   * Matrix_Scale(bunny_scale, bunny_scale, bunny_scale);
 
-            glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
+            glUniformMatrix4fv(g_model_uniform, 1, GL_FALSE, glm::value_ptr(model));
             glUniform1i(g_object_id_uniform, BUNNY);
             glUniform1i(g_surface_type_uniform, BLUE_PLASTIC_SURFACE);
             DrawVirtualObject("the_bunny");
         }
 
         // Coelhos verdes
-        // for (int i = 0; i < num_green_bunnies; i++){
-        //     float jump_y = -(sin(glTime * jump_speed) / 3);         // Altura do pulo
-        //     float pitch_angle = (cos(glTime * jump_speed)) / 2;     // Inclinação do pulo
+        for (int i = 0; i < 1; i++){
+            float jump_y = -sin(glTime * jump_speed) / 3;         // Altura do pulo
+            float pitch_angle = cos(glTime * jump_speed) / 2;     // Inclinação do pulo
 
-        //     model = Matrix_Translate(0.0f, jump_y - 0.4f, 1.0f)
-        //           * Matrix_Rotate_X(pitch_angle + (i * 2*3.141592f/num_blue_bunnies))
-        //           * Matrix_Rotate_Y(-3.141592f / 2.0f)
-        //           * Matrix_Scale(bunny_scale, bunny_scale, bunny_scale);
+            float bunny_x = cos(glTime);
+            float bunny_z = sin(glTime);
 
-        //     glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
-        //     glUniform1i(g_object_id_uniform, BUNNY);
-        //     glUniform1i(g_surface_type_uniform, JADE_SURFACE);
-        //     DrawVirtualObject("the_bunny");
-        // }
+            model = Matrix_Translate(bunny_x, jump_y - 0.4f, bunny_z)
+                  * Matrix_Rotate_X(pitch_angle + (i * 2*3.141592f/num_blue_bunnies))
+                  * Matrix_Rotate_Y(-3.141592f / 2.0f)
+                  * Matrix_Scale(bunny_scale, bunny_scale, bunny_scale);
+
+            glUniformMatrix4fv(g_model_uniform, 1, GL_FALSE, glm::value_ptr(model));
+            glUniform1i(g_object_id_uniform, BUNNY);
+            glUniform1i(g_surface_type_uniform, JADE_SURFACE);
+            DrawVirtualObject("the_bunny");
+        }
         // ==================================================================================================
 
         // Desenhamos o plano do chão
         model = Matrix_Translate(0.0f,-1.0f,0.0f) * Matrix_Scale(4.0f,1.0f,4.0f);
-        glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
+        glUniformMatrix4fv(g_model_uniform, 1, GL_FALSE, glm::value_ptr(model));
         glUniform1i(g_object_id_uniform, PLANE);
         DrawVirtualObject("the_plane");
 

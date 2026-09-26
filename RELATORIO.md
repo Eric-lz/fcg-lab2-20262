@@ -38,16 +38,15 @@ uniformemente.
 
 ## Principais dificuldades encontradas durante o desenvolvimento (formato livre)
 
-<mark>`<preencher>`</mark>
+Não consegui pensar em uma maneira de definir matematicamente o movimento dos coelhos verdes e amarelos,
+de modo que eles se movimentam em linha reta e depois viram 90° de maneira suave e contínua.
 
 ## Você acha que conseguiu resolver o problema de forma adequada?
 
-<mark>`<preencher>`</mark>
+Os coelhos azuis não se movimentam exatamente como no vídeo de demonstração.
 
 ## Se você quiser compartilhar mais alguma coisa, coloque aqui:
 
-<mark>`<preencher>`</mark>
 
 ## Se você possui alguma sugestão para o professor sobre esta atividade, coloque aqui:
 
-<mark>`<preencher>`</mark>
