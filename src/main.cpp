@@ -438,18 +438,7 @@ int main(int argc, char* argv[])
         float glTime = (float)glfwGetTime();                // Tempo desde o início do programa (segundos)
         float orbit_angle = orbit_angular_speed * glTime;
         
-        // Escala
-        const float bunny_scale = 0.3f;
-
-        // Numero de coelhos
-        const int num_blue_bunnies = 8;
         
-        // Inclinação
-        const float jump_speed = 3.141592f / 1.5f;
-        float pitch_angle = (cos(glTime * jump_speed)) / 2;
-
-        // Altura do pulo
-        float jump_y = -(sin(glTime * jump_speed) / 3);
 
         // As seguintes transformações acontecem "de trás pra frente"
         // 1: rotaciona o modelo em -90° (sentido horário)
@@ -465,11 +454,22 @@ int main(int argc, char* argv[])
         // glUniform1i(g_surface_type_uniform, GOLD_SURFACE);
         // DrawVirtualObject("the_bunny");
         // ==================================================================================================
+        const float bunny_scale = 0.3f;                         // Escala
+        const int num_blue_bunnies = 8;                         // Numero de coelhos azuis
+        const int num_green_bunnies = 8;                        // Numero de coelhos verdes
+        const float jump_speed = 3.141592f / 1.5f;              // Velocidade do pulo
+
+        // Coelhos azuis
         for (int i = 0; i < num_blue_bunnies; i++){
+            float jump_y = -(sin(glTime * jump_speed + (i * 2*3.141592f/num_blue_bunnies*4)) / 3);      // Altura do pulo
+            float pitch_angle = (cos(glTime * jump_speed + (i * 2*3.141592f/num_blue_bunnies*4))) / 2;  // Inclinação do pulo
+
             // As seguintes transformações acontecem "de trás pra frente"
-            // 1: rotaciona o modelo em -90° (sentido horário)
-            // 2: aplica translação em orbit_radius unidades
-            // 3: aplica rotação em torno da origem em orbit_angle radianos
+            // 1: aplica escala no modelo 3D
+            // 2: rotaciona o modelo em -90° (sentido horário)
+            // 3: aplica rotação de inclinação do pulo (balanço para frente e para trás)
+            // 4: aplica translação em orbit_radius unidades
+            // 5: aplica rotação em torno da origem em orbit_angle radianos
             model = Matrix_Rotate_Y(orbit_angle + (i * 2*3.141592f/num_blue_bunnies))
                   * Matrix_Translate(orbit_radius, jump_y - 0.4f, 0.0f)
                   * Matrix_Rotate_X(pitch_angle)
@@ -481,6 +481,22 @@ int main(int argc, char* argv[])
             glUniform1i(g_surface_type_uniform, BLUE_PLASTIC_SURFACE);
             DrawVirtualObject("the_bunny");
         }
+
+        // Coelhos verdes
+        // for (int i = 0; i < num_green_bunnies; i++){
+        //     float jump_y = -(sin(glTime * jump_speed) / 3);         // Altura do pulo
+        //     float pitch_angle = (cos(glTime * jump_speed)) / 2;     // Inclinação do pulo
+
+        //     model = Matrix_Translate(0.0f, jump_y - 0.4f, 1.0f)
+        //           * Matrix_Rotate_X(pitch_angle + (i * 2*3.141592f/num_blue_bunnies))
+        //           * Matrix_Rotate_Y(-3.141592f / 2.0f)
+        //           * Matrix_Scale(bunny_scale, bunny_scale, bunny_scale);
+
+        //     glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
+        //     glUniform1i(g_object_id_uniform, BUNNY);
+        //     glUniform1i(g_surface_type_uniform, JADE_SURFACE);
+        //     DrawVirtualObject("the_bunny");
+        // }
         // ==================================================================================================
 
         // Desenhamos o plano do chão
